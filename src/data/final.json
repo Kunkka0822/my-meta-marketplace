@@ -1,0 +1,451 @@
+[{
+        "building_id": 425993522,
+        "image_url": "25.jpg",
+        "building_name": "Public building",
+        "coordinates": [
+            -118.24376036933441,
+            34.052238823567194
+        ]
+    },
+    {
+        "building_id": 905138650,
+        "image_url": "42.jpg",
+        "building_name": "Building",
+        "coordinates": [
+            -118.24376036933441,
+            34.052238823567194
+        ]
+    },
+    {
+        "building_id": 905138648,
+        "image_url": "8.jpg",
+        "building_name": "Building",
+        "coordinates": [
+            -118.24430140796697,
+            34.052393771330685
+        ]
+    },
+    {
+        "building_id": 425993506,
+        "image_url": "1.jpg",
+        "building_name": "Building",
+        "coordinates": [
+            -118.24373871088028,
+            34.051676060043434
+        ]
+    },
+    {
+        "building_id": 905135121,
+        "image_url": "5.jpg",
+        "building_name": "Building",
+        "coordinates": [
+            -118.24373871088028,
+            34.051676060043434
+        ]
+    },
+    {
+        "building_id": 905138649,
+        "image_url": "37.jpg",
+        "building_name": "Building",
+        "coordinates": [
+            -118.2444280385971,
+            34.05251719580973
+        ]
+    },
+    {
+        "building_id": 905135118,
+        "image_url": "31.jpg",
+        "building_name": "Building",
+        "coordinates": [
+            -118.24312716722488,
+            34.05185495487474
+        ]
+    },
+    {
+        "building_id": 425993516,
+        "image_url": "12.jpg",
+        "building_name": "Building",
+        "coordinates": [
+            -118.24292466044426,
+            34.052437193823835
+        ]
+    },
+    {
+        "building_id": 905135122,
+        "image_url": "20.jpg",
+        "building_name": "Building",
+        "coordinates": [
+            -118.243687748909,
+            34.05162939176449
+        ]
+    },
+    {
+        "building_id": 6333145,
+        "image_url": "10.jpg",
+        "building_name": "Civic building",
+        "coordinates": [
+            -118.2429707407666,
+            34.05307737185406
+        ]
+    },
+    {
+        "building_id": 428331963,
+        "image_url": "13.jpg",
+        "building_name": "Commercial building",
+        "coordinates": [
+            -118.24474453926086,
+            34.05283275846226
+        ]
+    },
+    {
+        "building_id": 6369773,
+        "image_url": "13.jpg",
+        "building_name": "Commercial building",
+        "coordinates": [
+            -118.24474453926086,
+            34.05283275846226
+        ]
+    },
+    {
+        "building_id": 443103746,
+        "image_url": "13.jpg",
+        "building_name": "Building",
+        "coordinates": [
+            -118.24301585555077,
+            34.05327721091018
+        ]
+    },
+    {
+        "building_id": 905135119,
+        "image_url": "26.jpg",
+        "building_name": "Building",
+        "coordinates": [
+            -118.24270606040955,
+            34.05149827598616
+        ]
+    },
+    {
+        "building_id": 905135120,
+        "image_url": "22.jpg",
+        "building_name": "Building",
+        "coordinates": [
+            -118.2441920042038,
+            34.05116048525025
+        ]
+    },
+    {
+        "building_id": 905135117,
+        "image_url": "13.jpg",
+        "building_name": "Building",
+        "coordinates": [
+            -118.24381917715073,
+            34.05094714303941
+        ]
+    },
+    {
+        "building_id": 219011063,
+        "image_url": "1.jpg",
+        "building_name": "Building",
+        "coordinates": [
+            -118.24208915233612,
+            34.052511640118695
+        ]
+    },
+    {
+        "building_id": 425993510,
+        "image_url": "14.jpg",
+        "building_name": "Building",
+        "coordinates": [
+            -118.24227824807167,
+            34.0530605406329
+        ]
+    },
+    {
+        "building_id": 443103748,
+        "image_url": "12.jpg",
+        "building_name": "Building",
+        "coordinates": [
+            -118.2427878677845,
+            34.05352388101332
+        ]
+    },
+    {
+        "building_id": 428331962,
+        "image_url": "15.jpg",
+        "building_name": "Commercial building",
+        "coordinates": [
+            -118.24543252587318,
+            34.052106073690524
+        ]
+    },
+    {
+        "building_id": 425993594,
+        "image_url": "14.jpg",
+        "building_name": "Commercial building",
+        "coordinates": [
+            -118.24513748288155,
+            34.05314165316054
+        ]
+    },
+    {
+        "building_id": 443103747,
+        "image_url": "38.jpg",
+        "building_name": "Building",
+        "coordinates": [
+            -118.24269935488701,
+            34.05353165888776
+        ]
+    },
+    {
+        "building_id": 443103750,
+        "image_url": "36.jpg",
+        "building_name": "Building",
+        "coordinates": [
+            -118.24275031685829,
+            34.053564992627386
+        ]
+    },
+    {
+        "building_id": 443103749,
+        "image_url": "36.jpg",
+        "building_name": "Building",
+        "coordinates": [
+            -118.24275970458984,
+            34.053597215229885
+        ]
+    },
+    {
+        "building_id": 6366084,
+        "image_url": "12.jpg",
+        "building_name": "Building",
+        "coordinates": [
+            -118.24482764574176,
+            34.05110527064804
+        ]
+    },
+    {
+        "building_id": 959006685,
+        "image_url": "38.jpg",
+        "building_name": "Building",
+        "coordinates": [
+            -118.24386477470398,
+            34.05383499543515
+        ]
+    },
+    {
+        "building_id": 959003484,
+        "image_url": "49.jpg",
+        "building_name": "Roof building",
+        "coordinates": [
+            -118.2438513636589,
+            34.05384944000559
+        ]
+    },
+    {
+        "building_id": 428015183,
+        "image_url": "41.jpg",
+        "building_name": "Retail building",
+        "coordinates": [
+            -118.24517369270325,
+            34.0513116023248
+        ]
+    },
+    {
+        "building_id": 262726265,
+        "image_url": "30.jpg",
+        "building_name": "Building",
+        "coordinates": [
+            -118.24395999312401,
+            34.053879440259365
+        ]
+    },
+    {
+        "building_id": 495107668,
+        "image_url": "17.jpg",
+        "building_name": "Building",
+        "coordinates": [
+            -118.24261620640755,
+            34.0509760331619
+        ]
+    },
+    {
+        "building_id": 427817639,
+        "image_url": "41.jpg",
+        "building_name": "Building",
+        "coordinates": [
+            -118.24261620640755,
+            34.0509760331619
+        ]
+    },
+    {
+        "building_id": 425993537,
+        "image_url": "7.jpg",
+        "building_name": "Building",
+        "coordinates": [
+            -118.24188128113747,
+            34.05176939652425
+        ]
+    },
+    {
+        "building_id": 425993595,
+        "image_url": "18.jpg",
+        "building_name": "Parking",
+        "coordinates": [
+            -118.24558138847351,
+            34.052672755010576
+        ]
+    },
+    {
+        "building_id": 425993587,
+        "image_url": "4.jpg",
+        "building_name": "Building",
+        "coordinates": [
+            -118.24179545044899,
+            34.05271831157965
+        ]
+    },
+    {
+        "building_id": 428015124,
+        "image_url": "3.jpg",
+        "building_name": "Building",
+        "coordinates": [
+            -118.24412763118744,
+            34.050657130110636
+        ]
+    },
+    {
+        "building_id": 428015162,
+        "image_url": "45.jpg",
+        "building_name": "Retail building",
+        "coordinates": [
+            -118.24541106820107,
+            34.05105603652663
+        ]
+    },
+    {
+        "building_id": 427817570,
+        "image_url": "44.jpg",
+        "building_name": "Retail building",
+        "coordinates": [
+            -118.24195101857185,
+            34.050966032736
+        ]
+    },
+    {
+        "building_id": 6366080,
+        "image_url": "21.jpg",
+        "building_name": "Building",
+        "coordinates": [
+            -118.2437065243721,
+            34.050320447190344
+        ]
+    },
+    {
+        "building_id": 695509051,
+        "image_url": "3.jpg",
+        "building_name": "Apartment",
+        "coordinates": [
+            -118.24484512209892,
+            34.05049045556474
+        ]
+    },
+    {
+        "building_id": 6363656,
+        "image_url": "11.jpg",
+        "building_name": "Building",
+        "coordinates": [
+            -118.24223929014853,
+            34.050648873466
+        ]
+    },
+    {
+        "building_id": 425993518,
+        "image_url": "48.jpg",
+        "building_name": "Building",
+        "coordinates": [
+            -118.24123755097389,
+            34.05269942227349
+        ]
+    },
+    {
+        "building_id": 427817680,
+        "image_url": "41.jpg",
+        "building_name": "Retail building",
+        "coordinates": [
+            -118.24195370078087,
+            34.05078158022458
+        ]
+    },
+    {
+        "building_id": 428015121,
+        "image_url": "20.jpg",
+        "building_name": "Parking",
+        "coordinates": [
+            -118.24560955166817,
+            34.050889362764934
+        ]
+    },
+    {
+        "building_id": 427817508,
+        "image_url": "40.jpg",
+        "building_name": "Retail building",
+        "coordinates": [
+            -118.2419402897358,
+            34.05067490870955
+        ]
+    },
+    {
+        "building_id": 427942890,
+        "image_url": "13.jpg",
+        "building_name": "Commercial building",
+        "coordinates": [
+            -118.24613124132156,
+            34.05144160723955
+        ]
+    },
+    {
+        "building_id": 900894807,
+        "image_url": "6.jpg",
+        "building_name": "Building",
+        "coordinates": [
+            -118.24623316526413,
+            34.05308609664314
+        ]
+    },
+    {
+        "building_id": 39335032,
+        "image_url": "23.jpg",
+        "building_name": "Building",
+        "coordinates": [
+            -118.24555188417435,
+            34.05395499640703
+        ]
+    },
+    {
+        "building_id": 894010731,
+        "image_url": "22.jpg",
+        "building_name": "Building",
+        "coordinates": [
+            -118.24193358421326,
+            34.05057490404229
+        ]
+    },
+    {
+        "building_id": 425993511,
+        "image_url": "15.jpg",
+        "building_name": "Building",
+        "coordinates": [
+            -118.2432009279728,
+            34.054536109821385
+        ]
+    },
+    {
+        "building_id": 427817489,
+        "image_url": "3.jpg",
+        "building_name": "Apartment",
+        "coordinates": [
+            -118.24340209364891,
+            34.05003821031285
+        ]
+    }
+]
