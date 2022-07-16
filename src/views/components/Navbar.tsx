@@ -1,12 +1,15 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import tw from 'tailwind-styled-components';
-import Logo from '../assets/pngs/logo.png';
+import Logo from '../../assets/pngs/logo.png';
 
 const Navbar: React.FC = () => {
+    const navigate = useNavigate();
+
     return (
-        <div className='flex items-center justify-between w-full h-[64px] px-[24px] bg-white shadow-lg fixed z-10'>
+        <div className='flex items-center justify-between w-full h-[64px] px-[24px] bg-white shadow-lg fixed z-10 fixed'>
             {/* <p className='font-black text-2xl'>MetaStore</p>     */}
-            <img src={Logo} alt="" className='h-[64px]'/>
+            <img src={Logo} alt="" className='h-[64px] cursor-pointer' onClick={() => navigate('/')}/>
             <div className='flex items-center gap-[24px]'>
                 <Button>
                     <p>Property</p>
@@ -22,7 +25,7 @@ const Navbar: React.FC = () => {
     );
 };
 
-const Button = tw.button`
+export const Button = tw.button`
     px-[8px]
     py-[6px]
     rounded-[8px]
@@ -32,7 +35,7 @@ const Button = tw.button`
     font-bold
 `
 
-const ConnectWalletButton = tw.button`
+export const ConnectWalletButton = tw.button`
     px-[16px]
     py-[6px]
     rounded-[8px]

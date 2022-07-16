@@ -24,11 +24,11 @@ export const sessionSlice = createSlice({
         sessionInit() {
             return { ...initialState };
         },
-        setSession(state, action) {
+        setSession(state: SessionState, action: any) {
             const { payload } = action;
             return { ...state, data: payload };
         },
-        setInitial(state, action) {
+        setInitial(state: SessionState, action: any) {
             const { payload } = action;
             return { ...state, data: payload };
         }

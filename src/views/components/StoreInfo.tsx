@@ -1,13 +1,8 @@
 import React, { useState } from 'react';
 import tw from 'tailwind-styled-components';
-import ChartImg from '../assets/svgs/chart.svg';
-import CoinImg from '../assets/svgs/coin.png';
-import EarthImg from '../assets/svgs/earth.png';
-
-
-interface StoreInfoProps {
-
-};
+import ChartImg from '../../assets/svgs/chart.svg';
+import CoinImg from '../../assets/svgs/coin.png';
+import EarthImg from '../../assets/svgs/earth.png';
 
 const StoreInfo: React.FC = () => {
     const [is24h, setIs24h] = useState(true);
