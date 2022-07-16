@@ -2,6 +2,7 @@
 
 .env
 .env.staging
+.env.dev
 
 # dependencies
 /node_modules
