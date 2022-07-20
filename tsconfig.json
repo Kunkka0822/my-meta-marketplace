@@ -22,5 +22,8 @@
   },
   "include": [
     "src"
+  ],
+  "crypto": [
+    "node_modules/crypto-js"
   ]
 }

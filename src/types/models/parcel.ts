@@ -8,6 +8,10 @@ export type ParcelData = {
     price: number;
     ownerAddress: string;
     contractAddress: string;
-    tokenId: ID;
+    tokenId: string;
     onSale: number;
+}
+export type ParcelBoughtRequest = {
+    ownerAddress: string,
+    tokenId: string
 }

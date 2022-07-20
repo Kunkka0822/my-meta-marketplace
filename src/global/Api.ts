@@ -1,7 +1,7 @@
 import LocalStorage, { getToken } from './LocalStorage';
 import axios, { AxiosRequestHeaders } from 'axios';
 import { getAbsoluteUrl, getUrlWithParam } from '../helpers/url';
-import { camelCaseKeys, snakeCaseKeys } from '../helpers/object';
+import { camelCaseKeys } from '../helpers/object';
 import _ from 'lodash';
 
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
@@ -67,10 +67,8 @@ const apiWrapper = (
         let absUrl = getAbsoluteUrl(url, baseUrl);
         if (method === 'POST' || method === 'PUT') {
             if (!(data instanceof FormData)) {
-                data = snakeCaseKeys(data);
             }
         } else {
-            data = snakeCaseKeys(data);
             absUrl = getUrlWithParam(absUrl, data);
         }
 

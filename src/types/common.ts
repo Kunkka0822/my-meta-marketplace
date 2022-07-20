@@ -4,7 +4,7 @@ export type ID = string | number;
 export type Pagination = {
     currentPage: number;
     lastPage: number;
-    perPage: number;
+    size: number;
     total: number;
 };
 
@@ -14,7 +14,7 @@ export type PageData<T> = Pagination & {
 
 export type PageParam<T = {}> = T & {
     page?: number;
-    perPage?: number;
+    size?: number;
     offset?: number;
 };
 

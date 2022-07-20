@@ -28,7 +28,7 @@ const Card: React.FC<CardParams> = ({data}) => {
                 #{data?.id}
             </div>
             <div className='flex justify-center bg-gray-100'>
-                <img src={LandImg} className="h-[200px]" alt="" />
+                <img src={data?.image} className="h-[200px]" alt="" />
             </div>
         </div>
     );

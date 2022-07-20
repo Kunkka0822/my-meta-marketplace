@@ -1,29 +1,53 @@
 import SearchBar from '../components/SearchBar';
 import StoreInfo from '../components/StoreInfo';
 
-import { useAppDispatch, useAppSelector } from '../../store';
-import { getListParcels, ParcelState } from '../../store/reducers/parcel';
 import { isArray } from 'lodash';
 import Card from '../components/Card';
-import { useEffect, useState } from 'react';
-import { Pagination } from '../../types/common';
-import { initPagination } from '../../helpers/pagenation';
-import PaginationComponent from '../components/Pagination';
+import PaginationComponent from '../components/Pagination'
+import type { ParcelData } from '../../types/models/parcel';
+import { useCallback, useEffect, useState } from 'react';
+import useApi from '../../hooks/useApi';
+import parcelApi from '../../modules/api/parcel';
 
+const PAGE_SIZE = 30;
 const Home = () => {
-  const { data: parcels, initial, loading } = useAppSelector<ParcelState>(state => state.parcel);
-  const [ pageState, setPageState ] = useState<Pagination | undefined>();
-  const dispatch = useAppDispatch();
+  const [parcels, setParcels] = useState<ParcelData[]>([]);
+  const { apiErrorHandler } = useApi();
+  const [loading, setLoading] = useState(false);
+  const [init, setInit] = useState(true);
+  const [page, setPage] = useState<number>(1);
 
-  if (initial && !loading || parcels && !isArray(parcels)) {
-    dispatch(getListParcels({}));
-  }
+  const handleLoad = useCallback(() => {
+    if (loading) return;
+    setLoading(true);
+    parcelApi.getListParcels({ page, size: PAGE_SIZE })
+    .then((response: ParcelData[]) => {
+      setParcels(response);
+    })
+    .catch(apiErrorHandler)
+    .finally(() => setLoading(true));
+  }, [apiErrorHandler, loading, page])
 
   useEffect(() => {
-    if (!initial && !loading && parcels && isArray(parcels) && !pageState) {
-      setPageState(initPagination(parcels.length));
+    if (init) {
+      setInit(false);
+      handleLoad();
     }
-  }, [initial, loading, parcels]);
+  }, [handleLoad, init, page])
+
+  // const { data: parcels, initial, loading } = useAppSelector<ParcelState>(state => state.parcel);
+  // const [ pageState, setPageState ] = useState<Pagination | undefined>();
+  // const dispatch = useAppDispatch();
+
+  // if (initial && !loading || parcels && !isArray(parcels)) {
+  //   dispatch(getListParcels({}));
+  // }
+
+  // useEffect(() => {
+  //   if (!initial && !loading && parcels && isArray(parcels) && !pageState) {
+  //     setPageState(initPagination(parcels.length));
+  //   }
+  // }, [initial, loading, pageState, parcels]);
 
   return (
     
@@ -31,7 +55,6 @@ const Home = () => {
       <SearchBar />
       <div className=' flex-1 flex flex-col gap-[32px] mt-[64px] sm:ml-[280px] p-[32px]'>
         <StoreInfo />
-        {!initial && 
           <div>
             <div className='flex flex-wrap gap-[16px] justify-center mb-6'>
               {
@@ -40,11 +63,7 @@ const Home = () => {
                 })
               }
             </div>
-            { pageState && pageState.perPage > pageState.total &&
-              <PaginationComponent state={pageState}/>
-            }
           </div>
-        }
       </div>
     </div>
   )
