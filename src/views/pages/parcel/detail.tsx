@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ParamType } from "../../../types/common";
-import MMC from '../../../assets/svgs/coin.png';
+import MMC from '../../../assets/pngs/mmc.png';
 import { ConnectWalletButton } from "../../components/Navbar";
 import { ParcelData } from "../../../types/models/parcel";
 import parcelApi from "../../../modules/api/parcel";

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import tw from 'tailwind-styled-components';
 import ChartImg from '../../assets/svgs/chart.svg';
-import CoinImg from '../../assets/svgs/coin.png';
+import CoinImg from '../../assets/pngs/mmc.png';
 import EarthImg from '../../assets/svgs/earth.png';
 
 const StoreInfo: React.FC = () => {
