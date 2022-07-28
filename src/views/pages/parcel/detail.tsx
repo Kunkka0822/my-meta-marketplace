@@ -1,28 +1,21 @@
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ParamType } from "../../../types/common";
 import MMC from '../../../assets/pngs/mmc.png';
-import { ConnectWalletButton } from "../../components/Navbar";
-import { ParcelData } from "../../../types/models/parcel";
+import { ParcelData, PropertyStatus } from "../../../types/models/parcel";
 import parcelApi from "../../../modules/api/parcel";
 import useApi from "../../../hooks/useApi";
-import { ContractNames, getContract } from "../../../modules/web3/wallet";
-import { toast } from "react-toastify";
-import { useAppDispatch, useAppSelector } from "../../../store";
-import { setMMCBalance } from "../../../store/reducers/mymeta";
 import { BeatLoader } from "react-spinners";
-import { Web3Context } from "../../../store/providers/Web3Provider";
+import MButton from "../../components/MButton";
 
 const ParcelDetail = () => {
-    const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const { id } = useParams<ParamType>();
     const [data, setData] = useState<ParcelData>();
     const [loading, setLoading] = useState<boolean>(false);
     const [buyLoading, setBuyLoading] = useState<boolean>(false);
     const [init, setInit] = useState(true);
-    const { walletAddress, ethersProvider } = useContext(Web3Context);
-
+    
     const { apiErrorHandler } = useApi();
 
     const handleLoad = useCallback(() => {
@@ -34,44 +27,21 @@ const ParcelDetail = () => {
         })
         .catch(apiErrorHandler)
         .finally(() => setLoading(false));
-    }, [apiErrorHandler, id, loading])
+    }, [apiErrorHandler, id, loading]);
+
     useEffect(() => {
         if (init) {
             setInit(false);
             handleLoad();
         }
     }, [handleLoad, init])
-    const updateBalance = useCallback(async () => {
-        if (!walletAddress) return;
-        const mmcContract = getContract(ethersProvider, ContractNames.MMC);
-        console.log(walletAddress);
-        const response = await mmcContract.balanceOf(walletAddress);
-        dispatch(setMMCBalance(Number(response)));
-    }, [dispatch, walletAddress]);
-
+    
     const handleBuy = useCallback(async () => {
-        if (!walletAddress) return;
         if (!data || !data.tokenId || buyLoading) return;
         setBuyLoading(true);
-        const mmMarket = getContract(ethersProvider, ContractNames.MMMarket);
-        const mmLand = getContract(ethersProvider, ContractNames.MMLand);
-        try {
-            let tx = await mmMarket.buyItem(mmLand.address, data?.tokenId)
-            let res = await tx.wait();
-            if (res.transactionHash) {
-                const response = await parcelApi.bought(data!.id, { ownerAddress: walletAddress, tokenId: data!.tokenId})
-                toast.success(`Congrat!! You are the owner of ${data!.address}`);
-                setData(response);
-                updateBalance();
-                return;
-            } else {
-                console.log('buy result', res);
-            }
-        } catch(e) {
-            apiErrorHandler(e);
-        }
+        parcelApi.buy(data.id, )
         setBuyLoading(false);
-    }, [apiErrorHandler, buyLoading, data, updateBalance, walletAddress]);
+    }, [buyLoading, data]);
 
 
     return (
@@ -102,15 +72,25 @@ const ParcelDetail = () => {
                                 <p className="text-[18px]">≈ {data.price * 0.001} USD</p>
                             </div>
                             <div className="flex my-auto mx-4">
-                                {walletAddress &&
-                                    <ConnectWalletButton onClick={handleBuy}>
+                                {data && data.status === PropertyStatus.ONSALE &&
+                                    <MButton onClick={handleBuy} className="px-[16px] py-[6px] rounded-[8px] bg-green hover:bg-darkgreen text-white font-bold shadow-green-200 shadow-lg">
                                         {buyLoading &&
                                             <BeatLoader size={10} color='#eee' loading={buyLoading} />
                                         }
                                         {!buyLoading &&
                                             'Buy Now'
                                         }
-                                    </ConnectWalletButton>
+                                    </MButton>
+                                }
+                                {data && data.status === PropertyStatus.UNMINTED &&
+                                    <MButton onClick={handleBuy} className="px-[16px] py-[6px] rounded-[8px] bg-green hover:bg-darkgreen text-white font-bold shadow-green-200 shadow-lg">
+                                        {buyLoading &&
+                                            <BeatLoader size={10} color='#eee' loading={buyLoading} />
+                                        }
+                                        {!buyLoading &&
+                                            'Mint Now'
+                                        }
+                                    </MButton>
                                 }
                             </div>
                         </div>
@@ -125,10 +105,14 @@ const ParcelDetail = () => {
                             </div>
                             <div className="flex flex-col">
                                 <p className="text-gray-500">owner</p>
-                                <p className="text-[17px] overflow-hidden">{data.ownerAddress}</p>
+                                <p className="text-[17px] overflow-hidden">
+                                    {data && data.owner &&
+                                        data.owner.name
+                                    }
+                                </p>
                             </div>
                             <div className="flex flex-col">
-                                <p className="text-gray-500">square</p>
+                                <p className="text-gray-500">Parcel Size</p>
                                 <p className="text-[17px] overflow-hidden">{data.square}ms<sup>2</sup></p>
                             </div>
                         </div>
