@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ParamType } from "../../../types/common";
 import MMC from '../../../assets/pngs/mmc.png';
@@ -9,9 +9,9 @@ import useApi from "../../../hooks/useApi";
 import { ContractNames, getContract } from "../../../modules/web3/wallet";
 import { toast } from "react-toastify";
 import { useAppDispatch, useAppSelector } from "../../../store";
-import { walletSelector } from "../../../store/selectors/wallet";
 import { setMMCBalance } from "../../../store/reducers/mymeta";
 import { BeatLoader } from "react-spinners";
+import { Web3Context } from "../../../store/providers/Web3Provider";
 
 const ParcelDetail = () => {
     const dispatch = useAppDispatch();
@@ -21,7 +21,7 @@ const ParcelDetail = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [buyLoading, setBuyLoading] = useState<boolean>(false);
     const [init, setInit] = useState(true);
-    const { data: walletAddress } = useAppSelector(walletSelector);
+    const { walletAddress, ethersProvider } = useContext(Web3Context);
 
     const { apiErrorHandler } = useApi();
 
@@ -42,24 +42,24 @@ const ParcelDetail = () => {
         }
     }, [handleLoad, init])
     const updateBalance = useCallback(async () => {
-        if (!walletAddress || !walletAddress.address) return;
-        const mmcContract = getContract(ContractNames.MMC);
-        console.log(walletAddress.address)
-        const response = await mmcContract.balanceOf(walletAddress.address)
-        dispatch(setMMCBalance(Number(response)))
-    }, [dispatch, walletAddress])
+        if (!walletAddress) return;
+        const mmcContract = getContract(ethersProvider, ContractNames.MMC);
+        console.log(walletAddress);
+        const response = await mmcContract.balanceOf(walletAddress);
+        dispatch(setMMCBalance(Number(response)));
+    }, [dispatch, walletAddress]);
 
     const handleBuy = useCallback(async () => {
-        if (!walletAddress || !walletAddress.address) return;
+        if (!walletAddress) return;
         if (!data || !data.tokenId || buyLoading) return;
         setBuyLoading(true);
-        const mmMarket = getContract(ContractNames.MMMarket);
-        const mmLand = getContract(ContractNames.MMLand);
+        const mmMarket = getContract(ethersProvider, ContractNames.MMMarket);
+        const mmLand = getContract(ethersProvider, ContractNames.MMLand);
         try {
             let tx = await mmMarket.buyItem(mmLand.address, data?.tokenId)
             let res = await tx.wait();
             if (res.transactionHash) {
-                const response = await parcelApi.bought(data!.id, { ownerAddress: walletAddress.address, tokenId: data!.tokenId})
+                const response = await parcelApi.bought(data!.id, { ownerAddress: walletAddress, tokenId: data!.tokenId})
                 toast.success(`Congrat!! You are the owner of ${data!.address}`);
                 setData(response);
                 updateBalance();
@@ -102,7 +102,7 @@ const ParcelDetail = () => {
                                 <p className="text-[18px]">≈ {data.price * 0.001} USD</p>
                             </div>
                             <div className="flex my-auto mx-4">
-                                {walletAddress && walletAddress.address &&
+                                {walletAddress &&
                                     <ConnectWalletButton onClick={handleBuy}>
                                         {buyLoading &&
                                             <BeatLoader size={10} color='#eee' loading={buyLoading} />

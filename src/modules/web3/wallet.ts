@@ -11,82 +11,82 @@ export enum ContractNames {
     MMMarket = 'MMMarket'
 } 
 
-const wallets = [
-    { walletName: "metamask"}
-];
+// const wallets = [
+//     { walletName: "metamask"}
+// ];
 
-let walletProvider: any;
+// let walletProvider: any;
 
-const onboard = Onboard({
-    networkId: parseInt(process.env.REACT_APP_CHAINID!),
-    hideBranding: true,
-    walletSelect: {
-        wallets
-    },
-    subscriptions: {
-        wallet: (wallet) => {
-            walletProvider = wallet.provider;
-            console.log(`${wallet.name} is now connected`);
-        }
-    }
-});
+// const onboard = Onboard({
+//     networkId: parseInt(process.env.REACT_APP_CHAINID!),
+//     hideBranding: true,
+//     walletSelect: {
+//         wallets
+//     },
+//     subscriptions: {
+//         wallet: (wallet) => {
+//             walletProvider = wallet.provider;
+//             console.log(`${wallet.name} is now connected`);
+//         },
+//     },
+//     walletCheck: [{ checkName: "connect" }, { checkName: "network" }],
+// });
 
-export const connectWallet =  async (): Promise<WalletAddress> => {
-    const currentState = onboard.getState();
-    if(currentState["address"] != null) {
-        return {
-            address: currentState["address"],
-            status: "👆🏽 Mint your GG Now.",
-        }
-    }
-    const walletSelected = await onboard.walletSelect();
-    if (walletSelected !== false) {
-        const walletCheck = await onboard.walletCheck();
-        if (walletCheck === true) {
-            const currentState = onboard.getState();
-            return {
-                address: currentState["address"],
-                status: "",
-            }
-        } else {
-            return {
-                address: "",
-                status: "Connect your wallet account to the site.",
-            }
-        }
-    }
-    return {
-        address: '',
-        status: 'Wallet not selected'
-    }
-}
+// export const connectWallet =  async (): Promise<WalletAddress> => {
+//     const currentState = onboard.getState();
+//     if(currentState["address"] != null) {
+//         return {
+//             address: currentState["address"],
+//             status: "👆🏽 Mint your GG Now.",
+//         }
+//     }
+//     const walletSelected = await onboard.walletSelect();
+//     if (walletSelected !== false) {
+//         const walletCheck = await onboard.walletCheck();
+//         if (walletCheck === true) {
+//             const currentState = onboard.getState();
+//             return {
+//                 address: currentState["address"],
+//                 status: "",
+//             }
+//         } else {
+//             return {
+//                 address: "",
+//                 status: "Connect your wallet account to the site.",
+//             }
+//         }
+//     }
+//     return {
+//         address: '',
+//         status: 'Wallet not selected'
+//     }
+// }
 
-export const disConnectWallet = (): WalletAddress => {
-    onboard.walletReset()
-    return {
-        address: "",
-        status: "Connect your wallet account to the site.",
-    }
-}
+// export const disConnectWallet = (): WalletAddress => {
+//     onboard.walletReset()
+//     return {
+//         address: "",
+//         status: "Connect your wallet account to the site.",
+//     }
+// }
 
-export const getCurrentWalletConnected = async (): Promise<WalletAddress> => {
-    const currentState = onboard.getState();
-    console.log('onboard state', currentState);
+// export const getCurrentWalletConnected = async (): Promise<WalletAddress> => {
+//     const currentState = onboard.getState();
 
-    if(currentState["address"] != null) {
-        return {
-            address: currentState["address"],
-            status: "",
-        }
-    } else {
-        return {
-            address: "",
-            status: "",
-        }
-    }
-}
+//     if(currentState["address"] != null) {
+//         return {
+//             address: currentState["address"],
+//             status: "",
+//         }
+//     } else {
+//         return {
+//             address: "",
+//             status: "",
+//         }
+//     }
+// }
 
-export const getContract = (contractName: ContractNames) => {
+export const getContract = (provider: any, contractName: ContractNames) => {
     let abi;
     switch (contractName) {
         case ContractNames.MMC:
@@ -96,7 +96,7 @@ export const getContract = (contractName: ContractNames) => {
         case ContractNames.MMMarket:
             abi = MMMarketAbi; break;
     }
-    const provider = new ethers.providers.Web3Provider(walletProvider);
+    // const provider = new ethers.providers.Web3Provider(walletProvider);
     const signer = provider.getSigner();
     return new ethers.Contract(abi.address, abi.abi, signer)
 }

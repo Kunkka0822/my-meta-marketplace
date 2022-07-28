@@ -1,16 +1,16 @@
 import { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import useAppInit from '../../hooks/useAppInit';
+// import useAppInit from '../../hooks/useAppInit';
 import Navbar from '../components/Navbar';
 import { publicPaths } from '../nav';
 
 const AppContent = () => {
-    const [inited, init] = useAppInit();
-    useEffect(() => {
-        if (!inited) {
-            init();
-        }
-    }, [init, inited])
+    // const [inited, init] = useAppInit();
+    // useEffect(() => {
+    //     if (!inited) {
+    //         init();
+    //     }
+    // }, [init, inited])
     return (
         <div className='flex min-h-screen'>
             <Navbar/>

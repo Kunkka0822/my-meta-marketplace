@@ -2,11 +2,11 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import mymetaReducer from "./reducers/mymeta";
 import sessionReducer from "./reducers/session";
-import walletReducer from "./reducers/wallet";
+// import walletReducer from "./reducers/wallet";
 
 const combinedReducers = combineReducers({
     session: sessionReducer,
-    wallet: walletReducer,
+    // wallet: walletReducer,
     mymeta: mymetaReducer
 })
 const store = configureStore({

@@ -1,58 +1,92 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import tw from 'tailwind-styled-components';
 import Logo from '../../assets/pngs/logo.png';
 import { useAppDispatch, useAppSelector } from '../../store';
-import { walletSelector } from '../../store/selectors/wallet';
-import { BeatLoader } from 'react-spinners';
-import { connectWallet, ContractNames, getContract } from '../../modules/web3/wallet';
-import { setWalletAddress, setWalletLoading } from '../../store/reducers/wallet';
-import { truncateAddress } from '../../helpers/web3';
 import { mmcBalanceSelector } from '../../store/selectors/mymeta';
+import { BeatLoader } from 'react-spinners';
+import { ContractNames, getContract } from '../../modules/web3/wallet';
+// import { walletSelector } from '../../store/selectors/wallet';
+// import { setWalletAddress, setWalletLoading } from '../../store/reducers/wallet';
+import { truncateAddress } from '../../helpers/web3';
 import { toast } from 'react-toastify';
 import { setMMCBalance } from '../../store/reducers/mymeta';
+
+import { Web3Context } from '../../store/providers/Web3Provider';
 
 const Navbar: React.FC = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
-    const { data: walletAddress, loading: walletLoading } = useAppSelector(walletSelector);
     const mmcBalance  = useAppSelector(mmcBalanceSelector);
+
+    const { walletAddress, walletLoading, connectWallet, disconnectWallet, ethersProvider } = useContext(Web3Context);
+
     const walletConnectStatus = useMemo(() => {
         if (walletLoading) return 'loading';
-        if (!walletAddress || !walletAddress.address) return 'not_connected';
+        if (!walletAddress) return 'not_connected';
         return 'connected'
     }, [walletAddress, walletLoading])
 
     const handleConnect = useCallback(() => {
         if (walletConnectStatus ==='connected') {
-            navigator.clipboard.writeText(walletAddress.address);
+            disconnectWallet();
+            navigator.clipboard.writeText(walletAddress);
             toast.info('Address copied');
             return;
         };
 
         if (walletLoading) return;
-        dispatch(setWalletLoading(true));
         connectWallet()
-        .then((response) => {
-            dispatch(setWalletAddress(response));
-            if (response.address) {
-                const mmcContract = getContract(ContractNames.MMC);
-                console.log(response.address)
-                mmcContract.balanceOf(response.address)
-                .then((response1: any) => {
-                    console.log(response1)
-                    dispatch(setMMCBalance(Number(response1)));
-                })
-            }
-        })
-        .catch(console.error)
-        .finally(() => {
-            dispatch(setWalletLoading(false))
-        })
+            .then((response) => {
+                if (response) {
+                    const mmcContract = getContract(response.provider, ContractNames.MMC);
+                    console.log(response);
+
+                    // please check here,  error is occurred.
+                    mmcContract.balanceOf(response.address)
+                        .then((response1: any) => {
+                            console.log(response1);
+                            dispatch(setMMCBalance(Number(response1)));
+                        })
+                }
+            })
+            .catch(console.error)
+            .finally(() => {
+
+            })
     }, [dispatch, walletAddress, walletConnectStatus, walletLoading])
 
+    // const { data: walletAddress, loading: walletLoading } = useAppSelector(walletSelector);
+    // const handleConnect = useCallback(() => {
+    //     if (walletConnectStatus ==='connected') {
+    //         navigator.clipboard.writeText(walletAddress.address);
+    //         toast.info('Address copied');
+    //         return;
+    //     };
+
+    //     if (walletLoading) return;
+    //     dispatch(setWalletLoading(true));
+    //     connectWallet()
+    //         .then((response) => {
+    //             dispatch(setWalletAddress(response));
+    //             if (response.address) {
+    //                 const mmcContract = getContract(ContractNames.MMC);
+    //                 console.log(response.address)
+    //                 mmcContract.balanceOf(response.address)
+    //                 .then((response1: any) => {
+    //                     console.log(response1)
+    //                     dispatch(setMMCBalance(Number(response1)));
+    //                 })
+    //             }
+    //         })
+    //         .catch(console.error)
+    //         .finally(() => {
+    //             dispatch(setWalletLoading(false))
+    //         })
+    // }, [dispatch, walletAddress, walletConnectStatus, walletLoading])
+
     return (
-        <div className='flex items-center justify-between w-full h-[64px] px-[24px] bg-white shadow-lg fixed z-10 fixed'>
+        <div className='flex items-center justify-between w-full h-[64px] px-[24px] bg-white shadow-lg fixed z-10'>
             {/* <p className='font-black text-2xl'>MetaStore</p>     */}
             <img src={Logo} alt="" className='h-[64px] cursor-pointer' onClick={() => navigate('/')}/>
             <div className='flex items-center gap-[24px]'>
@@ -72,8 +106,8 @@ const Navbar: React.FC = () => {
                         <BeatLoader size={10} color='#eee' loading={walletLoading} />
                     }
                     {walletConnectStatus === 'not_connected' && 'Connect Wallet'}
-                    {walletConnectStatus === 'connected' && truncateAddress(walletAddress.address)}
-                </ConnectWalletButton>
+                    {walletConnectStatus === 'connected' && truncateAddress(walletAddress)}
+                </ConnectWalletButton> 
             </div>
       </div>
     );

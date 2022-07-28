@@ -21,11 +21,11 @@ const Home = () => {
     if (loading) return;
     setLoading(true);
     parcelApi.getListParcels({ page, size: PAGE_SIZE })
-    .then((response: ParcelData[]) => {
-      setParcels(response);
-    })
-    .catch(apiErrorHandler)
-    .finally(() => setLoading(true));
+      .then((response: ParcelData[]) => {
+        setParcels(response);
+      })
+      .catch(apiErrorHandler)
+      .finally(() => setLoading(true));
   }, [apiErrorHandler, loading, page])
 
   useEffect(() => {
