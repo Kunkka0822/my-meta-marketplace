@@ -3,7 +3,7 @@ import Api from "../../global/Api";
 import { PageParam } from "../../types/common";
 
 const getListParcels = (data: PageParam) => {
-    return Api.get('api/parcels', null, data);
+    return Api.get('api/parcels', data);
 };
 
 const retrieve = (parcelId: ID) => {
