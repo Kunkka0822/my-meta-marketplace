@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import LocalStorage from "../../global/LocalStorage";
 import commonApi from "../../modules/api/common";
 import { addAsyncCases, AsyncState, reducerUtils } from "../../modules/lib/reducerUtils";
@@ -12,6 +12,7 @@ export const getSession = createAsyncThunk<SessionState, void>(
     'session/info',
     commonApi.getSession
 );
+
 
 export const sessionSlice = createSlice({
     name: 'session',
@@ -28,9 +29,12 @@ export const sessionSlice = createSlice({
             const { payload } = action;
             return { ...state, data: payload };
         },
-        setInitial(state: SessionState, action: any) {
+        setInitial(state: SessionState, action: PayloadAction<boolean>) {
             const { payload } = action;
-            return { ...state, data: payload };
+            return { ...state, initial: payload };
+        },
+        setLoading(state: SessionState, action: PayloadAction<boolean>) {
+            return { ...state, loading: action.payload};
         }
     },
     extraReducers: (builder) => {
@@ -41,4 +45,4 @@ const sessionReducer = sessionSlice.reducer;
 
 export default sessionReducer;
 
-export const { signOut, sessionInit, setSession, setInitial } = sessionSlice.actions;
+export const { signOut, sessionInit, setSession, setInitial: setSessionInitial, setLoading: setSessionLoading } = sessionSlice.actions;

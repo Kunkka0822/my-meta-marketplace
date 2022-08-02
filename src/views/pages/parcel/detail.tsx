@@ -39,7 +39,7 @@ const ParcelDetail = () => {
     const handleBuy = useCallback(async () => {
         if (!data || !data.tokenId || buyLoading) return;
         setBuyLoading(true);
-        parcelApi.buy(data.id, )
+        parcelApi.buy(data.id)
         setBuyLoading(false);
     }, [buyLoading, data]);
 

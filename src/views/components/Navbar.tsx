@@ -12,6 +12,7 @@ import { toast } from 'react-toastify';
 import { setMMCBalance } from '../../store/reducers/mymeta';
 
 import { Web3Context } from '../../store/providers/Web3Provider';
+import MButton from './MButton';
 
 const Navbar: React.FC = () => {
     const navigate = useNavigate();
@@ -65,13 +66,16 @@ const Navbar: React.FC = () => {
                 <Button>
                     <p>Items</p>
                 </Button>
-                <ConnectWalletButton onClick={handleConnect}>
+                {/* <ConnectWalletButton onClick={handleConnect}>
                     {walletConnectStatus === 'loading' && 
                         <BeatLoader size={10} color='#eee' loading={walletLoading} />
                     }
                     {walletConnectStatus === 'not_connected' && 'Connect Wallet'}
                     {walletConnectStatus === 'connected' && truncateAddress(walletAddress)}
-                </ConnectWalletButton> 
+                </ConnectWalletButton>  */}
+                <MButton to='/purchase_token'>
+                    Get MMC
+                </MButton>
             </div>
       </div>
     );

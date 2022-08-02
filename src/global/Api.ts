@@ -28,7 +28,7 @@ export type ApiMethodType = 'GET' | 'POST' | 'DELETE' | 'PUT';
 export const requestErrorHandler = (e: any, cb: Function) => {
     if (e.response && e.response.status === 401) {
         LocalStorage.removeToken();
-        window.location.href = '/login';
+        // window.location.href = '/login';
         return;
     }
     if (
@@ -71,22 +71,6 @@ const apiWrapper = (
         } else {
             absUrl = getUrlWithParam(absUrl, data);
         }
-
-        /**
-         * TODO
-         * In the future need to remove temp hash and add normal authentication
-         * But now temporarily use temp hash to buy, life time is 1 hour
-         * 
-         * check hash param in current url
-         */
-        let Url = new URL(window.location.href);
-        const hash = Url.searchParams.get('hash');
-        if (hash) {
-            Url = new URL(absUrl);
-            Url.searchParams.set('hash', hash);
-            absUrl = Url.toString();
-        }
-
 
         try {
             let response = null;

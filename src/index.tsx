@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import store from './store';
 import Web3Provider from './store/providers/Web3Provider';
+import './i18n';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

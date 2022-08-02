@@ -5,12 +5,6 @@ import Navbar from '../components/Navbar';
 import { publicPaths } from '../nav';
 
 const AppContent = () => {
-    // const [inited, init] = useAppInit();
-    // useEffect(() => {
-    //     if (!inited) {
-    //         init();
-    //     }
-    // }, [init, inited])
     return (
         <div className='flex min-h-screen'>
             <Navbar/>
