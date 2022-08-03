@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ParamType } from "../../../types/common";
-import MMC from '../../../assets/pngs/mmc.png';
+import MMC from "../../../assets/pngs/mmc.png";
 import { ParcelData, PropertyStatus } from "../../../types/models/parcel";
 import parcelApi from "../../../modules/api/parcel";
 import useApi from "../../../hooks/useApi";
@@ -17,19 +17,21 @@ const ParcelDetail = () => {
     const [init, setInit] = useState(true);
     const [timer, setTimer] = useState<NodeJS.Timer>();
     
+
     const { apiErrorHandler } = useApi();
 
     const handleLoad = useCallback(() => {
         if (!id || loading) return;
         setLoading(true);
-        parcelApi.retrieve(id)
-        .then(async response => {
+        parcelApi
+        .retrieve(id)
+        .then(async (response) => {
             setData(response);
         })
         .catch(apiErrorHandler)
         .finally(() => setLoading(false));
     }, [apiErrorHandler, id, loading]);
-
+    
     useEffect(() => {
         if (init) {
             setInit(false);
@@ -63,9 +65,15 @@ const ParcelDetail = () => {
         })
     }, [apiErrorHandler, buyLoading, data]);
 
+  useEffect(() => {
+    if (init) {
+      setInit(false);
+      handleLoad();
+    }
+  }, [handleLoad, init]);
 
     return (
-        <div className="grid grid-cols-2 gap-1 mt-[100px] max-w-[900px] mx-auto">
+        <div className="flex md:flex-row flex-col justify-between gap-x-10 mt-[100px] md:max-w-4xl max-w-[344px] px-[20px] mx-auto">
             {data && 
                 <>
                     <div className="flex flex-col justify-center">
@@ -77,19 +85,19 @@ const ParcelDetail = () => {
                                 <svg aria-hidden="true" className="mr-2 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z" clipRule="evenodd"></path></svg>
                                 Back
                             </button>
-                            <p className="text-[18px]">{data.address}</p>
-                            <p className="text-gray-500 text-[16px]"># {data.id}</p>
+                            <p className="md:text-[18px] text-[16px]">{data.address}</p>
+                            <p className="text-gray-500 md:text-[16px] text-[14px]"># {data.id}</p>
                         </div>
-                        <img src={data.image} alt="" className="w-full py-5" />
+                        <img src={data.image} alt="" className="w-full max-w-xs py-5" />
                     </div>
                     <div className="flex flex-col gap-4">
                         <div className="flex justify-end">
                             <div className="flex flex-col">
                                 <div className="flex gap-2 items-center">
                                     <img src={MMC} alt="" className="w-6 h-6" />
-                                    <p className="text-[22px] font-[600]">{data.price} MMC</p>
+                                    <p className="md:text-[22px] text-[18px] font-[600]">{data.price} MMC</p>
                                 </div>
-                                <p className="text-[18px]">≈ {data.price * 0.001} USD</p>
+                                <p className="md:text-[18px] text-[16px]">≈ {data.price * 0.001} USD</p>
                             </div>
                             <div className="flex my-auto mx-4">
                                 {data && data.status === PropertyStatus.ONSALE &&
@@ -114,7 +122,7 @@ const ParcelDetail = () => {
                                 }
                             </div>
                         </div>
-                        <div className="grid grid-cols-3 gap-4 border-[1px] border-gray-200 p-8 m-3 rounded-lg">
+                        <div className="grid grid-cols-3 gap-4 border-[1px] border-gray-200 p-4 md:m-3 m-0 mb-[20px] rounded-lg">
                             <div className="flex flex-col">
                                 <p className="text-gray-500">generation</p>
                                 <p className="text-[12px] text-darkgreen rounded-full border-green border-[1px] py-1 px-2 w-fit">alpha</p>
