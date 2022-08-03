@@ -5,7 +5,7 @@ import MMC from '../../../assets/pngs/mmc.png';
 import { ParcelData, PropertyStatus } from "../../../types/models/parcel";
 import parcelApi from "../../../modules/api/parcel";
 import useApi from "../../../hooks/useApi";
-import { BeatLoader } from "react-spinners";
+import { BeatLoader, CircleLoader } from "react-spinners";
 import MButton from "../../components/MButton";
 
 const ParcelDetail = () => {
@@ -15,6 +15,7 @@ const ParcelDetail = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [buyLoading, setBuyLoading] = useState<boolean>(false);
     const [init, setInit] = useState(true);
+    const [timer, setTimer] = useState<NodeJS.Timer>();
     
     const { apiErrorHandler } = useApi();
 
@@ -34,14 +35,33 @@ const ParcelDetail = () => {
             setInit(false);
             handleLoad();
         }
-    }, [handleLoad, init])
+        if (data && data.status === PropertyStatus.SECURING) {
+            if (!timer) {
+                const timer = setInterval(handleLoad, 5000);
+                setTimer(timer);
+            }
+        }
+        return () => {
+            if (timer) {
+                clearInterval(timer);
+                setTimer(undefined);
+            }
+        }
+    }, [data, handleLoad, init, timer])
+
     
     const handleBuy = useCallback(async () => {
-        if (!data || !data.tokenId || buyLoading) return;
+        if (!data || buyLoading) return;
         setBuyLoading(true);
         parcelApi.buy(data.id)
-        setBuyLoading(false);
-    }, [buyLoading, data]);
+        .then(response => {
+            setData(response);
+        })
+        .catch(apiErrorHandler)
+        .finally(() => {
+            setBuyLoading(false);
+        })
+    }, [apiErrorHandler, buyLoading, data]);
 
 
     return (
@@ -105,9 +125,12 @@ const ParcelDetail = () => {
                             </div>
                             <div className="flex flex-col">
                                 <p className="text-gray-500">owner</p>
-                                <p className="text-[17px] overflow-hidden">
+                                <p className="text-[17px]">
                                     {data && data.owner &&
                                         data.owner.name
+                                    }
+                                    {data && data.status === PropertyStatus.SECURING &&
+                                        <CircleLoader size={20} color="#007b55" />
                                     }
                                 </p>
                             </div>

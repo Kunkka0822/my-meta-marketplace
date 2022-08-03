@@ -4,7 +4,6 @@ import { useCallback, useEffect, useState } from "react";
 import tokenProductApi from "../../modules/api/tokenProduct";
 import { TokenProduct } from "../../types/models/tokenProduct";
 import useApi from "../../hooks/useApi";
-import { CircleLoader } from "react-spinners";
 
 const PurchaseToken = () => {
     const [tokenProducts, setTokenProducts] = useState<TokenProduct[]>([]);
@@ -24,6 +23,8 @@ const PurchaseToken = () => {
             setLoading(false);
         })
     }, [apiErrorHandler, loading]);
+
+    
 
     useEffect(() => {
         if (initial) {
