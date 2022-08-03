@@ -73,7 +73,8 @@ const Navbar: React.FC = () => {
                     {walletConnectStatus === 'not_connected' && 'Connect Wallet'}
                     {walletConnectStatus === 'connected' && truncateAddress(walletAddress)}
                 </ConnectWalletButton>  */}
-                <MButton to='/purchase_token'>
+                <MButton className='px-[16px] py-[6px] rounded-[8px] bg-green hover:bg-darkgreen text-white font-bold shadow-green-200 shadow-lg' to='/token_purchase'>
+                    
                     Get MMC
                 </MButton>
             </div>

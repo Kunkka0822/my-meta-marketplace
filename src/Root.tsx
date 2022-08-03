@@ -46,7 +46,6 @@ const Root = (props: any) => {
             }
             setDisplayEnabled(true);
         } else {
-            console.log( token, sessionLoading, initial, session ) 
             if (!token && !sessionLoading && !session) {
                 navigate(`/login?redirect=${location.pathname}`)
                 return;

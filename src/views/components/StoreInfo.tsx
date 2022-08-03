@@ -37,21 +37,21 @@ const StoreInfo: React.FC = () => {
             <div className='border rounded-b-lg pl-[72px] pr-[32px] pt-[10px] pb-[8px] shadow-xl shadow-gray-200'>
                 <div className='flex flex-col lg:flex-row'>
                     <div className='flex-1 flex items-center gap-[4px] pt-[16px] pb-[8px]'>
-                        <img src={ChartImg} width={48} />
+                        <img src={ChartImg} width={48} alt='MMC sales chart'/>
                         <div className='flex flex-col font-bold'>
                             <p className='text-[10px] text-[#6d7079]'>TOTAL SALES</p>
                             <p className='text-[28px] text-[#212b36]'>574</p>
                         </div>
                     </div>
                     <div className='flex-1 flex items-center gap-[4px] pt-[16px] pb-[8px]'>
-                        <img src={CoinImg} width={48} />
+                        <img src={CoinImg} width={48} alt='MMC coin' />
                         <div className='flex flex-col font-bold'>
                             <p className='text-[10px] text-[#6d7079]'>TOTAL MMC VOLUME</p>
                             <p className='text-[28px] text-[#212b36]'>3.52M</p>
                         </div>
                     </div>
                     <div className='flex-1 flex items-center gap-[4px] pt-[16px] pb-[8px]'>
-                        <img src={EarthImg} width={48} />
+                        <img src={EarthImg} width={48} alt='MMC parcel sales'/>
                         <div className='flex-col font-bold'>
                             <p className='text-[10px] text-[#6d7079]'>LAND PARCELS SOLD</p>
                             <p className='text-[28px] text-[#212b36]'>412</p>

@@ -1,17 +1,16 @@
-import { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 // import useAppInit from '../../hooks/useAppInit';
 import Navbar from '../components/Navbar';
-import { publicPaths } from '../nav';
+import NavData from '../nav';
 
 const AppContent = () => {
     return (
         <div className='flex min-h-screen'>
             <Navbar/>
-            <main className='flex-1'>
+            <main className='flex-1 mt-[64px]'>
                 <Routes>
                     {
-                        publicPaths.map((navItem, index) => (
+                        NavData.map((navItem, index) => (
                             <Route 
                                 key={index}
                                 path={navItem.to}

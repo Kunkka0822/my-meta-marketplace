@@ -31,7 +31,7 @@ const NavData: Array<NavItemData> = [
     },
     {
         anchor: 'Purchase token page',
-        to: '/purchase_token',
+        to: '/token_purchase',
         component: PurchaseToken,
         guard: Guard.USER,
     },
