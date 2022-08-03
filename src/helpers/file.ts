@@ -3,7 +3,7 @@ import { SerializableFileType } from '../types/common';
 
 export const convertFileToSerializable = (file: File): SerializableFileType => {
     return {
-        id: 0,
+        id: '0',
         name: file.name,
         type: file.type,
         size: file.size,

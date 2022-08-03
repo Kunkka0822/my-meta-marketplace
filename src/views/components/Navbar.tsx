@@ -2,7 +2,7 @@ import React, { useCallback, useContext, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import tw from 'tailwind-styled-components';
 import Logo from '../../assets/pngs/logo.png';
-import { useAppDispatch } from '../../store';
+import { useAppDispatch, useAppSelector } from '../../store';
 import { BeatLoader } from 'react-spinners';
 import { ContractNames, getContract } from '../../modules/web3/wallet';
 // import { walletSelector } from '../../store/selectors/wallet';
@@ -13,12 +13,17 @@ import { setMMCBalance } from '../../store/reducers/mymeta';
 
 import { Web3Context } from '../../store/providers/Web3Provider';
 import MButton from './MButton';
+import { sessionSelector } from '../../store/selectors/session';
+import { SessionState } from '../../store/reducers/session';
 
 const Navbar: React.FC = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     
     const { walletAddress, walletLoading, connectWallet, disconnectWallet } = useContext(Web3Context);
+
+    const { data: session } = useAppSelector<SessionState>(sessionSelector);
+    
 
     const walletConnectStatus = useMemo(() => {
         if (walletLoading) return 'loading';
@@ -60,6 +65,11 @@ const Navbar: React.FC = () => {
             {/* <p className='font-black text-2xl'>MetaStore</p>     */}
             <img src={Logo} alt="" className='h-[64px] cursor-pointer' onClick={() => navigate('/')}/>
             <div className='flex items-center gap-[24px]'>
+                {session && 
+                    <div className='text-md'>
+                        Balance: <strong>{session.balances.mmcSpendable.toLocaleString()} MMC</strong>
+                    </div>
+                }
                 <Button>
                     <p>Property</p>
                 </Button>

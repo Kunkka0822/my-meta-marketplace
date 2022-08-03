@@ -1,5 +1,5 @@
 export type nstring = string | number | undefined;
-export type ID = string | number;
+export type ID = string;
 
 export type Pagination = {
     currentPage: number;
