@@ -9,7 +9,7 @@ import { useCallback, useEffect, useState } from "react";
 import useApi from "../../hooks/useApi";
 import parcelApi from "../../modules/api/parcel";
 import { BeatLoader } from "react-spinners";
-
+//
 const PAGE_SIZE = 30;
 const Home = () => {
   const [parcels, setParcels] = useState<ParcelData[]>([]);
