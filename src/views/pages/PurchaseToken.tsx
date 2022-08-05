@@ -86,7 +86,7 @@ const PurchaseToken = () => {
     }, [purchaseLoading, searchParams, setSearchParams, tokenPurchaseStep2])
 
     return (
-        <div className="w-full flex justify-center">
+        <div className="w-full flex justify-center mb-28">
             <section className="mt-32 w-full max-w-screen-lg px-2 flex items-center flex-col gap-y-4">
                 {tokenProducts.map(tokenProduct => (
                     <div key={tokenProduct.id} className="flex items-center justify-between p-6 w-full max-w-xl bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100">

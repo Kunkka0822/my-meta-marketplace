@@ -22,6 +22,7 @@ const Root = (props: any) => {
         .then(response => {
             dispatch(setSession(response.session));
             LocalStorage.saveToken(response.token);
+            navigate(location.pathname);
         })
         .catch(e => {
             console.log(e);
@@ -31,19 +32,23 @@ const Root = (props: any) => {
             dispatch(setSessionLoading(false));
             dispatch(setSessionInitial(false));
         })
-    }, [dispatch])
+    }, [dispatch, location.pathname, navigate])
 
     useEffect(() => {
         const token = LocalStorage.getToken();
         let Url = new URL(window.location.href);
         const hash = Url.searchParams.get('hash');
         if (isPublicPath(location.pathname)) {
-            if (!session && !sessionLoading && initial && token) {
-                dispatch(getSession());
-            } else if (hash && !session && !sessionLoading && initial) {
+            if (hash && initial) {
+                if (session) {
+                    LocalStorage.removeToken();
+                    dispatch(setSession(null));
+                }
                 signinHash(hash)
                 return;
-            }
+            } else if (!session && !sessionLoading && initial && token) {
+                dispatch(getSession());
+            } 
             setDisplayEnabled(true);
         } else {
             if (!token && !sessionLoading && !session) {

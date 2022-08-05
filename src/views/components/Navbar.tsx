@@ -1,17 +1,11 @@
-import React, { useCallback, useContext, useMemo, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import tw from "tailwind-styled-components";
 import Logo from "../../assets/pngs/logo.png";
-import { useAppDispatch, useAppSelector } from "../../store";
-import { BeatLoader } from "react-spinners";
-import { ContractNames, getContract } from "../../modules/web3/wallet";
+import { useAppSelector } from "../../store";
 // import { walletSelector } from '../../store/selectors/wallet';
 // import { setWalletAddress, setWalletLoading } from '../../store/reducers/wallet';
-import { truncateAddress } from "../../helpers/web3";
-import { toast } from "react-toastify";
-import { setMMCBalance } from "../../store/reducers/mymeta";
 
-import { Web3Context } from "../../store/providers/Web3Provider";
 import MButton from "./MButton";
 import { sessionSelector } from "../../store/selectors/session";
 import { SessionState } from "../../store/reducers/session";
