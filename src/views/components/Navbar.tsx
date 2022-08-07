@@ -24,9 +24,19 @@ const Navbar: React.FC = () => {
       <img
         src={Logo}
         alt=""
-        className="h-[64px] cursor-pointer"
+        className="max-w-[200px] md:max-w-full md:h-[64px] cursor-pointer"
         onClick={() => navigate("/")}
       />
+      {session &&
+        <div className="block md:hidden">
+          <div className="text-md">
+            MMC: 
+            <strong>
+              {session.balances.mmcSpendable.toLocaleString()}
+            </strong>
+          </div>
+        </div>
+      }
       <div
         className={`sm:flex sm:flex-row sm:static sm:bg-transparent bg-white/50 items-center sm:gap-[24px] absolute flex flex-col top-0 left-0 sm:w-auto sm:h-auto sm:backdrop-blur-none sm:p-0 pt-[100px] w-screen h-screen backdrop-blur-md ${
           isBurgerVisible ? "block" : "hidden"

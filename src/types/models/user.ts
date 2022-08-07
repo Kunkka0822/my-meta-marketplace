@@ -12,3 +12,10 @@ export type UserData = {
     name: string,
     balances: BalancesType
 }
+export enum KYCStatus {
+    NODATA = 'NODATA',
+    ACCEPT = 'ACCEPT',
+    DENY = 'DENY',
+    MANUAL_REVIEW = 'MANUAL_REVIEW',
+    REVERIFY = 'REVERIFY'
+}

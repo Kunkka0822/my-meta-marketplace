@@ -7,8 +7,11 @@ import parcelApi from "../../../modules/api/parcel";
 import useApi from "../../../hooks/useApi";
 import { BeatLoader, CircleLoader } from "react-spinners";
 import MButton from "../../components/MButton";
+import { getSession } from "../../../store/reducers/session";
+import { useAppDispatch } from "../../../store";
 
 const ParcelDetail = () => {
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const { id } = useParams<ParamType>();
     const [data, setData] = useState<ParcelData>();
@@ -58,12 +61,13 @@ const ParcelDetail = () => {
         parcelApi.buy(data.id)
         .then(response => {
             setData(response);
+            dispatch(getSession());
         })
         .catch(apiErrorHandler)
         .finally(() => {
             setBuyLoading(false);
         })
-    }, [apiErrorHandler, buyLoading, data]);
+    }, [apiErrorHandler, buyLoading, data, dispatch]);
 
   useEffect(() => {
     if (init) {
