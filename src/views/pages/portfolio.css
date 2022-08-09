@@ -1,0 +1,8 @@
+.swiper {
+  padding-top: 50px;
+  padding-bottom: 60px;
+}
+
+.swiper-slide {
+  width: fit-content;
+}

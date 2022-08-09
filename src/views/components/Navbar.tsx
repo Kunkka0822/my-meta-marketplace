@@ -69,11 +69,8 @@ const Navbar: React.FC = () => {
             />
           </svg>
         </button>
-        <Button>
-          <p>Property</p>
-        </Button>
-        <Button>
-          <p>Items</p>
+        <Button onClick={() => navigate('/portfolio')}>
+          <p>Portfolio</p>
         </Button>
         {/* <ConnectWalletButton onClick={handleConnect}>
           {walletConnectStatus === "loading" && (
