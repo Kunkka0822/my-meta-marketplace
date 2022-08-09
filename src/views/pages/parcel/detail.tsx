@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { ParamType } from "../../../types/common";
 import MMC from "../../../assets/pngs/mmc.png";
 import { ParcelData, PropertyStatus } from "../../../types/models/parcel";
@@ -7,8 +7,9 @@ import parcelApi from "../../../modules/api/parcel";
 import useApi from "../../../hooks/useApi";
 import { BeatLoader, CircleLoader } from "react-spinners";
 import MButton from "../../components/MButton";
-import { getSession } from "../../../store/reducers/session";
-import { useAppDispatch } from "../../../store";
+import { getSession, SessionState } from "../../../store/reducers/session";
+import { useAppDispatch, useAppSelector } from "../../../store";
+import { sessionSelector } from "../../../store/selectors/session";
 
 const ParcelDetail = () => {
     const dispatch = useAppDispatch();
@@ -19,7 +20,13 @@ const ParcelDetail = () => {
     const [buyLoading, setBuyLoading] = useState<boolean>(false);
     const [init, setInit] = useState(true);
     const [timer, setTimer] = useState<NodeJS.Timer>();
-    
+    const { data: session } = useAppSelector<SessionState>(sessionSelector);
+    const location = useLocation();
+
+    const lackOfBalance = useMemo(() => {
+        if (!session || !data) return false;
+        return session.balances.mmcSpendable < data.price;
+    }, [data, session])
 
     const { apiErrorHandler } = useApi();
 
@@ -42,7 +49,7 @@ const ParcelDetail = () => {
         }
         if (data && data.status === PropertyStatus.SECURING) {
             if (!timer) {
-                const timer = setInterval(handleLoad, 5000);
+                const timer = setInterval(handleLoad, 2000);
                 setTimer(timer);
             }
         }
@@ -69,12 +76,12 @@ const ParcelDetail = () => {
         })
     }, [apiErrorHandler, buyLoading, data, dispatch]);
 
-  useEffect(() => {
-    if (init) {
-      setInit(false);
-      handleLoad();
-    }
-  }, [handleLoad, init]);
+    useEffect(() => {
+        if (init) {
+            setInit(false);
+            handleLoad();
+        }
+    }, [handleLoad, init]);
 
     return (
         <div className="flex md:flex-row flex-col justify-between gap-x-10 mt-[100px] md:max-w-4xl max-w-[344px] px-[20px] mx-auto">
@@ -104,7 +111,17 @@ const ParcelDetail = () => {
                                 <p className="md:text-[18px] text-[16px]">≈ {data.price * 0.001} USD</p>
                             </div>
                             <div className="flex my-auto mx-4">
-                                {data && data.status === PropertyStatus.ONSALE &&
+                                {!session &&
+                                    <MButton to="/login" className="px-[16px] py-[6px] rounded-[8px] bg-green hover:bg-darkgreen text-white font-bold shadow-green-200 shadow-lg">
+                                        Go To Login
+                                    </MButton>
+                                }
+                                {session && lackOfBalance &&
+                                    <MButton to={"/token_purchase?fromUrl=" + location.pathname} className="px-[16px] py-[6px] rounded-[8px] bg-green hover:bg-darkgreen text-white font-bold shadow-green-200 shadow-lg">
+                                        Get MMC
+                                    </MButton>
+                                }
+                                {session && !lackOfBalance && data && data.status === PropertyStatus.ONSALE &&
                                     <MButton onClick={handleBuy} className="px-[16px] py-[6px] rounded-[8px] bg-green hover:bg-darkgreen text-white font-bold shadow-green-200 shadow-lg">
                                         {buyLoading &&
                                             <BeatLoader size={10} color='#eee' loading={buyLoading} />
@@ -114,7 +131,7 @@ const ParcelDetail = () => {
                                         }
                                     </MButton>
                                 }
-                                {data && data.status === PropertyStatus.UNMINTED &&
+                                {session && !lackOfBalance && data && data.status === PropertyStatus.UNMINTED &&
                                     <MButton onClick={handleBuy} className="px-[16px] py-[6px] rounded-[8px] bg-green hover:bg-darkgreen text-white font-bold shadow-green-200 shadow-lg">
                                         {buyLoading &&
                                             <BeatLoader size={10} color='#eee' loading={buyLoading} />
