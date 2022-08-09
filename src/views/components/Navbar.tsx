@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import tw from "tailwind-styled-components";
 import Logo from "../../assets/pngs/logo.png";
 import { useAppSelector } from "../../store";
@@ -16,6 +16,7 @@ const Navbar: React.FC = () => {
   const [isBurgerVisible, setBurgerVisible] = useState(false);
 
   const { data: session } = useAppSelector<SessionState>(sessionSelector);
+  const location = useLocation();
 
   return (
     <div className="flex items-center justify-between w-full h-[64px] px-[24px] bg-white shadow-lg fixed z-10">
@@ -82,7 +83,8 @@ const Navbar: React.FC = () => {
           className="px-[16px] py-[6px] rounded-[8px] bg-green hover:bg-darkgreen text-white font-bold shadow-green-200 shadow-lg"
           onClick={() => {
             setBurgerVisible(false);
-            navigate("/token_purchase");
+            const fromUrl = location.pathname;
+            navigate(`/token_purchase?fromUrl=${fromUrl}`);
           }}
         >
           Get MMC
