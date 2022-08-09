@@ -69,12 +69,7 @@ const Home = () => {
           }}
           hasMore={init || hasMore}
           loader={
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-              }}
-            >
+            <div className="flex justify-center">
               <BeatLoader size={20} color="#007b55" />
             </div>
           }

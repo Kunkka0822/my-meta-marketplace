@@ -18,7 +18,6 @@ const Navbar: React.FC = () => {
   const { data: session } = useAppSelector<SessionState>(sessionSelector);
   const location = useLocation();
 
-
   return (
     <div className="flex items-center justify-between w-full h-[64px] px-[24px] bg-white shadow-lg fixed z-10">
       {/* <p className='font-black text-2xl'>MetaStore</p>     */}
@@ -28,16 +27,14 @@ const Navbar: React.FC = () => {
         className="max-w-[200px] md:max-w-full md:h-[64px] cursor-pointer"
         onClick={() => navigate("/")}
       />
-      {session &&
+      {session && (
         <div className="block sm:hidden">
           <div className="text-md">
-            MMC: 
-            <strong>
-              {session.balances.mmcSpendable.toLocaleString()}
-            </strong>
+            MMC:
+            <strong>{session.balances.mmcSpendable.toLocaleString()}</strong>
           </div>
         </div>
-      }
+      )}
       <div
         className={`sm:flex sm:flex-row sm:static sm:bg-transparent bg-white/50 items-center sm:gap-[24px] absolute flex flex-col top-0 left-0 sm:w-auto sm:h-auto sm:backdrop-blur-none sm:p-0 pt-[100px] w-screen h-screen backdrop-blur-md ${
           isBurgerVisible ? "block" : "hidden"
@@ -70,11 +67,8 @@ const Navbar: React.FC = () => {
             />
           </svg>
         </button>
-        <Button>
-          <p>Property</p>
-        </Button>
-        <Button>
-          <p>Items</p>
+        <Button onClick={() => navigate("/portfolio")}>
+          <p>Portfolio</p>
         </Button>
         {/* <ConnectWalletButton onClick={handleConnect}>
           {walletConnectStatus === "loading" && (
