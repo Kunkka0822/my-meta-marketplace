@@ -2,6 +2,7 @@ import { matchPath } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import ParcelDetail from "./pages/parcel/detail";
+import Portfolio from "./pages/Portfolio";
 import PurchaseToken from "./pages/PurchaseToken";
 
 export enum Guard {
@@ -17,6 +18,12 @@ export type NavItemData = {
 };
 
 const NavData: Array<NavItemData> = [
+    {
+        anchor: 'Portfolio Page',
+        to: '/portfolio',
+        component: Portfolio,
+        guard: Guard.USER,
+    },
     {
         anchor: 'Parcel Detail Page',
         to: '/parcels/:id',
