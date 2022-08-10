@@ -1,8 +1,8 @@
 import React from 'react';
 import GreenhouseImg from '../../assets/svgs/green_house.png';
 import { ParcelData } from '../../types/models/parcel';
-import LandImg from '../../assets/svgs/product.png';
 import { useNavigate } from 'react-router-dom';
+import Address from './Address';
 
 export type CardParams = {
     data?: ParcelData;
@@ -17,9 +17,9 @@ const Card: React.FC<CardParams> = ({data}) => {
         >
             <div className='flex flex-row items-center px-[16px]'>
                 <div className='flex-1'>
-                    <p>{data?.address}</p>
-                    <p className='text-[11px]'>DownTown, Los Angeles</p>
-                    <p className='text-[11px]'>United States</p>
+                    <p>
+                        <Address address={data?.address} />
+                    </p>
                 </div>
                 <img src={GreenhouseImg} width={30} alt="" />
             </div>

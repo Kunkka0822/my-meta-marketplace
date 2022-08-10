@@ -10,6 +10,7 @@ import MButton from "../../components/MButton";
 import { getSession, SessionState } from "../../../store/reducers/session";
 import { useAppDispatch, useAppSelector } from "../../../store";
 import { sessionSelector } from "../../../store/selectors/session";
+import Address from "../../components/Address";
 
 const ParcelDetail = () => {
     const dispatch = useAppDispatch();
@@ -96,7 +97,7 @@ const ParcelDetail = () => {
                                 <svg aria-hidden="true" className="mr-2 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z" clipRule="evenodd"></path></svg>
                                 Back
                             </button>
-                            <p className="md:text-[18px] text-[16px]">{data.address}</p>
+                            <p className="md:text-[18px] text-[16px]"><Address address={data.address}></Address></p>
                             <p className="text-gray-500 md:text-[16px] text-[14px]"># {data.id}</p>
                         </div>
                         <img src={data.image} alt="" className="w-full max-w-xs py-5" />
@@ -108,7 +109,7 @@ const ParcelDetail = () => {
                                     <img src={MMC} alt="" className="w-6 h-6" />
                                     <p className="md:text-[22px] text-[18px] font-[600]">{data.price} MMC</p>
                                 </div>
-                                <p className="md:text-[18px] text-[16px]">≈ {data.price * 0.001} USD</p>
+                                <p className="md:text-[18px] text-[16px]">≈ {(data.price * 0.001).toLocaleString()} USD</p>
                             </div>
                             <div className="flex my-auto mx-4">
                                 {!session &&
